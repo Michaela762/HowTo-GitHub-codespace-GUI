@@ -1,71 +1,37 @@
 #include <iostream>
-#include <cmath>
+
+void passByValue(int a) // a is a copy
+{
+    std::cout << "Value before: " << a << std::endl;
+    a = 1; // modifies only the local copy
+}
+
+void passByPointer(int *a) // a is an address
+{
+    std::cout << "Pointer before: " << *a << std::endl;
+    *a = 1; // modifies the original variable
+}
+
+void passByReference(int &a) // a is an alias
+{
+    std::cout << "Reference before: " << a << std::endl;
+    a = 1; // modifies the original variable
+}
 
 int main()
 {
-    std::cout << "Vitejte v kalkulacce" << std::endl;
-    std::string continueAnswer = "ano";
+    int a = 0;
 
-    while (continueAnswer == "ano")
-    {
-        std::cout << "Zadejte prvni cislo:" << std::endl;
-        float a;
-        std::cin >> a;
+    passByValue(a);
+    std::cout << "Value after: " << a << std::endl;
 
-        std::cout << "Zadejte druhe cislo:" << std::endl;
-        float b;
-        std::cin >> b;
+    a = 0;
+    passByPointer(&a);
+    std::cout << "Pointer after: " << a << std::endl;
 
-        std::cout << "Zvolte si operaci:" << std::endl;
-        std::cout << "1 - scitani" << std::endl;
-        std::cout << "2 - odcitani" << std::endl;
-        std::cout << "3 - nasobeni" << std::endl;
-        std::cout << "4 - deleni" << std::endl;
-
-        int choice;
-        std::cin >> choice;
-
-        float result = 0.0f;
-        bool choiceValid = true;
-
-        switch (choice)
-        {
-        case 1:
-            result = a + b;
-            break;
-
-        case 2:
-            result = a - b;
-            break;
-
-        case 3:
-            result = a * b;
-            break;
-
-        case 4:
-            result = a / b;
-            break;
-
-        default:
-            // neplatna volba
-            choiceValid = false;
-            break;
-        }
-
-        if (choiceValid)
-        {
-            std::cout << "Vysledek: " << result << std::endl;
-        }
-        else
-        {
-            std::cout << "Neplatna volba" << std::endl;
-        }
-
-        std::cout << "Prejete si zadat dalsi priklad? [ano/ne]" << std::endl;
-        std::cin >> continueAnswer;
-    }
-
-    std::cout << "Dekuji za pouziti kalkulacky." << std::endl;
+    a = 0;
+    passByReference(a);
+    std::cout << "Reference after: " << a << std::endl;
 
     return 0;
 }
