@@ -1,37 +1,74 @@
 #include <iostream>
+#include <vector>
 
-void passByValue(int a) // a is a copy
+std::vector<double> multiplyMatrixVector(
+    const std::vector<std::vector<double>> &matrix,
+    const std::vector<double> &vector)
 {
-    std::cout << "Value before: " << a << std::endl;
-    a = 1; // modifies only the local copy
-}
+    // Kontrola prázdné matice
+    if (matrix.empty() || matrix[0].empty()) // nechci prázdnou matici ani matici bez sloupců
+    {
+        return {};
+    }
 
-void passByPointer(int *a) // a is an address
-{
-    std::cout << "Pointer before: " << *a << std::endl;
-    *a = 1; // modifies the original variable
-}
+    size_t cols = matrix[0].size();
 
-void passByReference(int &a) // a is an alias
-{
-    std::cout << "Reference before: " << a << std::endl;
-    a = 1; // modifies the original variable
+    // Kontrola kompatibility rozměrů
+    if (cols != vector.size())
+    {
+        return {};
+    }
+
+    // Kontrola, že všechny řádky mají stejnou délku
+    for (const auto &row : matrix) //smyčka přes řádky
+    {
+        if (row.size() != cols)
+        {
+            return {};
+        }
+    }
+
+
+    // Výpočet
+    std::vector<double> result; //prázdný vektor, do kterého se ukládájí výsledky
+
+    for (const auto &row : matrix) //projde každý řádek matice
+    {
+        double sum = 0.0; //slouží k průběžnému ukládání součtu při výpočtu skalárního součinu
+
+        for (size_t i = 0; i < cols; i++) //smyčka přes prvky řádku
+        {
+            sum += row[i] * vector[i]; //součin prvku z matice k odpovidajícímu prvku z vektoru a následně všechny součiny sečtu
+        }
+
+        result.push_back(sum); //přidá výsledek do vektoru
+    }
+
+    return result;
 }
 
 int main()
 {
-    int a = 0;
+    std::vector<std::vector<double>> matrix = {
+        {8.0, 3.0, 6.0},
+        {5.0, 9.0, 2.0}};
+    std::vector<double> vector = {7.0, 11.0, 3.0};
 
-    passByValue(a);
-    std::cout << "Value after: " << a << std::endl;
+    std::vector<double> result = multiplyMatrixVector(matrix, vector);
 
-    a = 0;
-    passByPointer(&a);
-    std::cout << "Pointer after: " << a << std::endl;
-
-    a = 0;
-    passByReference(a);
-    std::cout << "Reference after: " << a << std::endl;
+    if (result.empty())
+    {
+        std::cout << "Použili jste neplatné rozměry." << std::endl;
+    }
+    else
+    {
+        std::cout << "Výsledek sočinu matice a vektoru je ";
+        for (double value : result)
+        {
+            std::cout << value << " ";
+        }
+        std::cout << std::endl;
+    }
 
     return 0;
 }
