@@ -1,4 +1,4 @@
-/* #include <iostream>
+#include <iostream>
 #include <vector>
 
 std::vector<double> multiplyMatrixVector(
@@ -20,14 +20,13 @@ std::vector<double> multiplyMatrixVector(
     }
 
     // Kontrola, že všechny řádky mají stejnou délku
-    for (const auto &row : matrix) //smyčka přes řádky
+    for (const auto &row : matrix) 
     {
         if (row.size() != cols)
         {
             return {};
         }
     }
-
 
     // Výpočet
     std::vector<double> result; //prázdný vektor, do kterého se ukládájí výsledky
@@ -36,7 +35,7 @@ std::vector<double> multiplyMatrixVector(
     {
         double sum = 0.0; //slouží k průběžnému ukládání součtu při výpočtu skalárního součinu
 
-        for (size_t i = 0; i < cols; i++) //smyčka přes prvky řádku
+        for (size_t i = 0; i < cols; i++) 
         {
             sum += row[i] * vector[i]; //součin prvku z matice k odpovidajícímu prvku z vektoru a následně všechny součiny sečtu
         }
@@ -71,9 +70,9 @@ int main()
     }
 
     return 0;
-} */
+}
 
-#include <iostream>
+/* #include <iostream>
 #include <string>
 #include <vector>
 
@@ -111,7 +110,7 @@ public:
     // Výpis všech uživatelů
     void printAll() const //fuknce jenom vypisuje data, nemění je
     {
-        for (const User &user : users_) //cyklus - vezme všechny uživatele jeden po druhém
+        for (const User &user : users_) 
         {
             std::cout << "Name: " << user.getName() << std::endl;
             std::cout << "Age: " << user.getAge() << std::endl;
@@ -125,7 +124,7 @@ public:
         if (users_.empty()) //předchází dělení 0
             return 0.0;
 
-        int sum = 0; //proměnna pro součet věků 
+        int sum = 0; //proměnná pro součet věků 
         for (const User &user : users_)
         {
             sum += user.getAge();
@@ -170,7 +169,7 @@ int main()
     users.printAll();
 
     return 0;
-}
+} */
 
 
 
