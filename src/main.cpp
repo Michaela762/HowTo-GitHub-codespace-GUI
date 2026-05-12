@@ -58,11 +58,11 @@ int main()
 
     if (result.empty())
     {
-        std::cout << "Použili jste neplatné rozměry." << std::endl;
+        std::cout << "Pouzili jste neplatne rozmery." << std::endl;
     }
     else
     {
-        std::cout << "Výsledek sočinu matice a vektoru je ";
+        std::cout << "Vysledek soucinu matice a vektoru je ";
         for (double value : result)
         {
             std::cout << value << " ";
@@ -77,39 +77,41 @@ int main()
 #include <string>
 #include <vector>
 
-class User // reprezentuje jednoho uživatele
+// Jeden uživatel
+class User 
 {
 public:
-    User(std::string name, int age, std::string street) //konstruktor zajišťující, že objekt vždy vznikne s korektními daty - zabráníme vzniku neplatných nebo neúplných objektů
+    User(std::string name, int age, std::string street) //konstruktor zajišťující, že objekt vždy vznikne s korektními daty 
         : name_(name), age_(age), street_(street)
     {
     }
 
-    std::string getName() const { return name_; } //Member functions pracují s daty uživatele, ke kterému náleží
+    std::string getName() const { return name_; } //Gettery - umožňuje čtení dat, fuknce const zakazuje jakoukoliv změnu dat
     int getAge() const { return age_; }
     std::string getStreet() const { return street_; }
 
-    void setAge(int age) { age_ = age; }
+    void setAge(int age) { age_ = age; } //Setter - umožňuje změnu věku 
 
-private: //Member variables - uchovává data uživatele
+private: // uchovává data uživatele
     std::string name_;
     int age_;
     std::string street_;
 };
 
-class UserList // více úživatelů
+// Více úživatelů
+class UserList 
 {
 public:
     // Vložení jednoho uživatele
-    void add(const User &user)
+    void add(const User &user) //funkce přijme uživatele
     {
-        users_.push_back(user);
+        users_.push_back(user); //přidá ho do seznamu
     }
 
     // Výpis všech uživatelů
-    void printAll() const
+    void printAll() const //fuknce jenom vypisuje data, nemění je
     {
-        for (const User &user : users_)
+        for (const User &user : users_) //cyklus - vezme všechny uživatele jeden po druhém
         {
             std::cout << "Name: " << user.getName() << std::endl;
             std::cout << "Age: " << user.getAge() << std::endl;
@@ -118,17 +120,17 @@ public:
     }
 
     // Výpočet průměrného věku
-    double averageAge() const
+    double averageAge() const // fuknce vždy vrátí číslo
     {
         if (users_.empty()) //předchází dělení 0
             return 0.0;
 
-        int sum = 0;
+        int sum = 0; //proměnna pro součet věků 
         for (const User &user : users_)
         {
             sum += user.getAge();
         }
-        return static_cast<double>(sum) / users_.size();
+        return static_cast<double>(sum) / users_.size(); //vydělí součet počtem uživatel a převede na double, aby vyšel desetinný výsledek
     }
 
     // nastavení věku všem uživatelům
@@ -141,18 +143,25 @@ public:
     }
 
 private:
-    std::vector<User> users_;
+    std::vector<User> users_; // uložení uživatelů - jejich seznam 
 };
 
 int main()
 {
-    UserList users;
-    users.add(User("Alice", 21, "Kvetna 12"));
-    users.add(User("Bob", 30, "Parkova 7"));
-    users.add(User("Ema", 25, "Lesni 3"));
+    // Uživatelé
+    UserList users; 
+    users.add(User("Anežka", 19, "Ticha 33"));
+    users.add(User("Robert", 34, "Javorova 2"));
+    users.add(User("Iva", 27, "Slunecni 18"));
 
-    std::cout << "Vekovy prumer je " << users.averageAge() << std::endl;
+    // Výpis uživatelů 
+    std::cout << "Seznam uzivatelu: " << std::endl;
+    users.printAll();
 
+    // Průměrný věk
+    std::cout << "Prumerny vek:" << users.averageAge() << std::endl;
+
+    // Změna věku
     int newAge;
     std::cout << "Zadejte novy vek: ";
     std::cin >> newAge;
@@ -162,3 +171,6 @@ int main()
 
     return 0;
 }
+
+
+
